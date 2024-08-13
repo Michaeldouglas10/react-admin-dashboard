@@ -1,10 +1,10 @@
-create table Users(
+create table users(
 	id_user		INTEGER NOT NULL primary key auto_increment,
     descricao	char(10)
 );
 
-insert into Users (descricao) values ("ADM");
-insert into Users (descricao) values ("USER");
+insert into users (descricao) values ("ADM");
+insert into users (descricao) values ("USER");
 
 
 create table casa(
@@ -17,7 +17,7 @@ create table casa(
 
 insert into casa (residencia, numero, rua, descricao) values ("Casa 01","101",'rua Amazonas','1 sala, 1 cozinha, 2 banheiros, 2 quartos - 190m2');
 
-create table Func(
+create table func(
 		id_func			integer not null primary key auto_increment,
 		nome_func		varchar(25),
         end_func		varchar(25),
@@ -27,16 +27,16 @@ create table Func(
         tel_func		varchar(12),
         imagem_func		varchar(50),
         usuario_func varchar(50),
-        senha_func varchar(50),
+        password varchar(50),
         id_user			int,
         
-        foreign key (id_user) references Users(id_user)
+        foreign key (id_user) references users(id_user)
 );
 
-insert into Func (nome_func, end_func,bairro_func,cidade_func, cep_func, tel_func, imagem_func,usuario_func,senha_func,id_user) values ("fabricio","rua 5","pq do sol","aparecida","12555","1231255911","","fab12","123","1");
+insert into func (nome_func, end_func,bairro_func,cidade_func, cep_func, tel_func, imagem_func,usuario_func,password,id_user) values ("fabricio","rua 5","pq do sol","aparecida","12555","1231255911","","fab12","123","1");
 
 
-create table Morador(
+create table morador(
 		id_morador		integer not null primary key auto_increment,
         nome_morador	varchar(25),
         sobrenome_morador	varchar(25),
@@ -49,15 +49,15 @@ create table Morador(
         id_casa int,     
         imagem_morador	varchar(50),
         usuario_morador varchar(50),
-        senha_morador varchar(50),
+        password varchar(50),
         id_user			int,
         
         foreign key (id_casa) references casa(id_casa),
-        foreign key (id_user) references Users(id_user)
+        foreign key (id_user) references users(id_user)
 );
 
-insert into Morador (nome_morador, sobrenome_morador,tel_morador,veiculo_morador,marca_morador, modelo_morador, placa_morador,cor_morador,id_casa,imagem_morador,usuario_morador,senha_morador,id_user) 
-values ("paulo","pereira","12325599","carro","ford","eco esport 2015","frer12","prata","1","","paulo10","123","1");
+insert into morador (nome_morador, sobrenome_morador,tel_morador,veiculo_morador,marca_morador, modelo_morador, placa_morador,cor_morador,id_casa,imagem_morador,usuario_morador,password,id_user) 
+values ("paulo","pereira","12325599","carro","ford","eco esport 2015","frer12","prata","1","","paulo10","$2b$10$00EGAy77M9173FQSVE9hfu0JDv2mOUdN/cZtVQO1bajgWhfHGkYeC","1");
 
 
 create table quiosque(
@@ -77,25 +77,25 @@ create table reserva_quiosque(
         hora_inicio		varchar(5),
         hora_fim		varchar(5),
         id_morador		int,
-        FOREIGN KEY(id_morador) REFERENCES Morador(id_morador),
+        FOREIGN KEY(id_morador) REFERENCES morador(id_morador),
         FOREIGN KEY(id_quiosque) REFERENCES quiosque(id_quiosque)
 );
 
 insert into reserva_quiosque (id_quiosque,data,hora_inicio,hora_fim,id_morador) values ("1","10/08/2024","8h","21h","1");
 
 
-create table Sindico(
+create table sindico(
 		id_sindico	INTEGER NOT NULL primary key auto_increment,
 		id_morador	int,
 		
-        foreign key (id_morador) references Morador(id_morador)
+        foreign key (id_morador) references morador(id_morador)
 	
 );	
 
-insert into Sindico (id_morador) values ("1");
+insert into sindico (id_morador) values ("1");
 
 
-create table Visitante(
+create table visitante(
 		id_visitante	integer not null primary key auto_increment,
         nome_visitante	varchar(25),
         tel_visitante	varchar(25),
@@ -107,10 +107,11 @@ create table Visitante(
         id_morador		int,
         id_func			int,
         
-        foreign key (id_morador) references Morador(id_morador),
-		foreign key (id_func) references Func(id_func)
+        foreign key (id_morador) references morador(id_morador),
+		foreign key (id_func) references func(id_func)
 );
 
-insert into Visitante (nome_visitante,tel_visitante,veiculo_visit,marca_visit,modelo_visit,placa_visit,cor_visit,id_morador,id_func) 
+insert into visitante (nome_visitante,tel_visitante,veiculo_visit,marca_visit,modelo_visit,placa_visit,cor_visit,id_morador,id_func) 
 values ("larissa","12326262","moto","honda","titan 2012","fe20r","preto","1","1");
+
 
