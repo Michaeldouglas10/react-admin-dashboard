@@ -1,9 +1,12 @@
 import mysql from "mysql2"
 
 export const db = mysql.createConnection({
-    host:"bukli8qaivb1qmjaorfa-mysql.services.clever-cloud.com",
-    user:"uagwibkw4qwbo0ur",
-    password:"l7QRU6m9Q61gSxhSmuue",
+    host: process.env.DB_HOST, 
+    user: process.env.DB_USERNAME, 
+    password: process.env.DB_PASSWORD,
     port: "3306",
-    database:"bukli8qaivb1qmjaorfa"
+    database: process.env.DB_DBNAME,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 })
